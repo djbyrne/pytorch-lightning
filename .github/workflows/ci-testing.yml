@@ -26,8 +26,8 @@ jobs:
       run: |
         python -c "req = open('requirements.txt').read().replace('>', '=') ; open('requirements.txt', 'w').write(req)"
 
-    - uses: actions/cache@v1
     - name: Cache Pip Linux
+      uses: actions/cache@v1
       if: startsWith(runner.os, 'Linux')
       with:
         path: ~/.cache/pip
@@ -36,8 +36,8 @@ jobs:
           ${{ runner.os }}-pip-${{ matrix.python-version }}-
           ${{ runner.os }}-${{ matrix.python-version }}-
 
-    - uses: actions/cache@v1
     - name: Cache Pip Mac
+      uses: actions/cache@v1
       if: startsWith(runner.os, 'macOS')
       with:
         path: ~/Library/Caches/pip
@@ -46,8 +46,8 @@ jobs:
           ${{ runner.os }}-pip-${{ matrix.python-version }}-
           ${{ runner.os }}-${{ matrix.python-version }}-
 
-    - uses: actions/cache@v1
     - name: Cache Pip Windows
+      uses: actions/cache@v1
       if: startsWith(runner.os, 'Windows')
       with:
         path: ~\AppData\Local\pip\Cache

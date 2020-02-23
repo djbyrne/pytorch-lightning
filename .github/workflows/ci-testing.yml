@@ -29,7 +29,6 @@ jobs:
 
     # Linux
     - uses: actions/cache@v1
-    - name: Cache pip
       if: startsWith(runner.os, 'Linux')
       with:
         path: ~/.cache/pip

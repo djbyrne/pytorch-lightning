@@ -26,8 +26,7 @@ jobs:
       run: |
         python -c "req = open('requirements.txt').read().replace('>', '=') ; open('requirements.txt', 'w').write(req)"
 
-
-    # Linux
+    - name: Cache Pip Linux
     - uses: actions/cache@v1
       if: startsWith(runner.os, 'Linux')
       with:
@@ -36,7 +35,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-${{ matrix.python-version }}-
           ${{ runner.os }}-${{ matrix.python-version }}-
-    # Mac
+
+    - name: Cache Pip Mac
     - uses: actions/cache@v1
       if: startsWith(runner.os, 'macOS')
       with:
@@ -46,9 +46,9 @@ jobs:
           ${{ runner.os }}-pip-${{ matrix.python-version }}-
           ${{ runner.os }}-${{ matrix.python-version }}-
 
-    # Windows
+    - name: Cache Pip Windows
     - uses: actions/cache@v1
-      if: startsWith(runner.os, 'macOS')
+      if: startsWith(runner.os, 'Windows')
       with:
         path: ~\AppData\Local\pip\Cache
         key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('requirements.txt') }}

@@ -40,7 +40,7 @@ jobs:
       with:
         path: tests/models/mnist
         # Look to see if there is a cache hit for the corresponding requirements file
-        key: ${{ runner.os }}-mnist
+        key: ${{ matrix.python-version }}-mnist
 
     - name: Install dependencies
       run: |

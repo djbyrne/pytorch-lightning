@@ -26,9 +26,10 @@ jobs:
       run: |
         python -c "req = open('requirements.txt').read().replace('>', '=') ; open('requirements.txt', 'w').write(req)"
 
-    - name: Cache pip
+
     # Linux
     - uses: actions/cache@v1
+    - name: Cache pip
       if: startsWith(runner.os, 'Linux')
       with:
         path: ~/.cache/pip

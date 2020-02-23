@@ -1,7 +1,7 @@
 name: CI testing
 
 on: [push, pull_request]
-#test
+
 jobs:
   build:
 
@@ -26,32 +26,12 @@ jobs:
       run: |
         python -c "req = open('requirements.txt').read().replace('>', '=') ; open('requirements.txt', 'w').write(req)"
 
-    - name: Cache Pip Linux
+    - name: Cache pip
       uses: actions/cache@v1
-      if: startsWith(runner.os, 'Linux')
       with:
-        path: ~/.cache/pip
+        path: ~/.cache/pip # This path is specific to Ubuntu
+        # Look to see if there is a cache hit for the corresponding requirements file
         key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-${{ matrix.python-version }}-
-          ${{ runner.os }}-${{ matrix.python-version }}-
-
-    - name: Cache Pip Mac
-      uses: actions/cache@v1
-      if: startsWith(runner.os, 'macOS')
-      with:
-        path: ~/Library/Caches/pip
-        key: ${{ runner.os }}-pip
-        restore-keys: |
-          ${{ runner.os }}-pip-${{ matrix.python-version }}-
-          ${{ runner.os }}-${{ matrix.python-version }}-
-
-    - name: Cache Pip Windows
-      uses: actions/cache@v1
-      if: startsWith(runner.os, 'Windows')
-      with:
-        path: ~\AppData\Local\pip\Cache
-        key: ${{ runner.os }}-pip
         restore-keys: |
           ${{ runner.os }}-pip-${{ matrix.python-version }}-
           ${{ runner.os }}-${{ matrix.python-version }}-
@@ -59,9 +39,9 @@ jobs:
     - name: Cache datasets
       uses: actions/cache@v1
       with:
-        path: tests/models/mnist
+        path: tests/models/mnist # This path is specific to Ubuntu
         # Look to see if there is a cache hit for the corresponding requirements file
-        key: ${{ matrix.python-version }}-mnist
+        key: mnist-dataset
 
     - name: Install dependencies
       run: |
